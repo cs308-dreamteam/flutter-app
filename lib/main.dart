@@ -5,7 +5,7 @@ import 'login-register/screens/login_screen.dart';
 import 'login-register/screens/register_screen.dart';
 
 void main() async {
-  runApp(const Briga());
+  runApp(Briga());
 }
 
 final _router = GoRouter(
@@ -45,24 +45,33 @@ ColorScheme lightScheme = const ColorScheme.light().copyWith(
 ColorScheme darkScheme = const ColorScheme.dark().copyWith();
 
 class Briga extends StatelessWidget {
-  const Briga({super.key});
+  Briga({super.key});
+
+  final app = MaterialApp.router(
+    theme: ThemeData(
+      colorScheme: lightScheme,
+      fontFamily: 'Poppins',
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: const Color(0xFFED6C44),
+        ),
+      ),
+    ),
+    routerConfig: _router,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: ThemeData(
-        colorScheme: lightScheme,
-        fontFamily: 'Poppins',
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            backgroundColor: const Color(0xFFED6C44),
-          ),
-        ),
-      ),
-      routerConfig: _router,
+    return app;
+  }
+
+  Widget integrateWidget(Widget widget) {
+    return MaterialApp(
+      theme: app.theme,
+      home: widget,
     );
   }
 }
