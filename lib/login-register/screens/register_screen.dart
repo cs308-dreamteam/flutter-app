@@ -1,3 +1,4 @@
+import 'package:bragi/common/services/global_variables.dart';
 import 'package:bragi/login-register/widgets/login_button.dart';
 import 'package:bragi/login-register/widgets/login_service_switch.dart';
 import 'package:bragi/login-register/widgets/login_spotify.dart';
@@ -52,7 +53,11 @@ class RegisterScreen extends StatelessWidget {
                         fieldHint: "Password",
                         controller: passwordController,
                       ),
-                      const LoginButton(text: "Sign Up"),
+                      LoginButton(
+                        // TODO: Add field verifications
+                        text: "Sign Up",
+                        onPress: pressedRegister(emailController.text),
+                      ),
                       const LoginSeparator(),
                       const LoginSpotify(),
                     ],
@@ -68,5 +73,9 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> pressedRegister(String mail) async {
+    GlobalVariables.authentication.sendVerificationMail(mail);
   }
 }
