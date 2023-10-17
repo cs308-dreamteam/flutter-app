@@ -7,11 +7,9 @@ class LoginSpotify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(
-              const Color(0xFF1ED760),
-            ),
-          ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF1ED760),
+      ),
       onPressed: () => {},
       child: Padding(
         padding: const EdgeInsets.all(8.0),

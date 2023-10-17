@@ -1,3 +1,4 @@
+import 'package:bragi/profile/widgets/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,7 +25,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/profile',
-      builder: (context, state) => RegisterScreen(),
+      builder: (context, state) => const ProfileScreen(),
     ),
   ],
 );
@@ -34,6 +35,8 @@ ColorScheme lightScheme = const ColorScheme.light().copyWith(
   onPrimary: const Color(0xFFF8F3F0),
   primaryContainer: const Color(0xFF4BC5C3),
   onPrimaryContainer: const Color(0xFF250505),
+  secondaryContainer: const Color(0xFF4C4743),
+  onSecondaryContainer: const Color(0xFFF8F3F0),
   secondary: const Color(0xFFFFB230),
   onSecondary: const Color(0xFFF8F3F0),
   tertiary: const Color(0xFFC3A279),
@@ -51,14 +54,6 @@ class Briga extends StatelessWidget {
     theme: ThemeData(
       colorScheme: lightScheme,
       fontFamily: 'Poppins',
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: const Color(0xFFED6C44),
-        ),
-      ),
     ),
     routerConfig: _router,
   );

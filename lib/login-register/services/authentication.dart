@@ -17,7 +17,7 @@ class Authentication {
   }
 
   Future<int> verify(
-      int code, String mail, String username, String password) async {
+      String code, String mail, String username, String password) async {
     var res = await GlobalVariables.client.send(
       method: 'POST',
       path: '/verify',
@@ -26,6 +26,40 @@ class Authentication {
         'mail': mail,
         'user': username,
         'pass': password,
+      },
+    );
+    return res.statusCode;
+  }
+
+  Future<int> register(String username, String password, String mail) async {
+    var res = await GlobalVariables.client.send(
+      method: 'POST',
+      path: '/register/username/$username/password/$password/email/$mail',
+    );
+    user = User(username: username);
+    return res.statusCode;
+  }
+
+  Future<int> login(String username, String password) async {
+    var res = await GlobalVariables.client.send(
+      method: 'POST',
+      path: "/login",
+      queryParameters: {
+        'name': username,
+        'pass': password,
+      },
+    );
+    user = User(username: username);
+    return res.statusCode;
+  }
+
+  Future<int> logout() async {
+    if (user == null) return 0;
+    var res = await GlobalVariables.client.send(
+      method: 'POST',
+      path: "/logout",
+      queryParameters: {
+        'name': user?.username,
       },
     );
     return res.statusCode;
