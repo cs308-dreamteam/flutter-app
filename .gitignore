@@ -1,14 +1,11 @@
-<<<<<<< Updated upstream
 # Miscellaneous
 *.class
-=======
 # Do not remove or rename entries in this file, only add new ones
 # See https://github.com/flutter/flutter/issues/128635 for more context.
 
 # Miscellaneous
 *.class
 *.lock
->>>>>>> Stashed changes
 *.log
 *.pyc
 *.swp
@@ -17,10 +14,7 @@
 .buildlog/
 .history
 .svn/
-<<<<<<< Updated upstream
 migrate_working_dir/
-=======
->>>>>>> Stashed changes
 
 # IntelliJ related
 *.iml
@@ -28,7 +22,6 @@ migrate_working_dir/
 *.iws
 .idea/
 
-<<<<<<< Updated upstream
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
@@ -43,7 +36,7 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/
+build/
 
 # Symbolication related
 app.*.symbols
@@ -173,4 +166,5 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
->>>>>>> Stashed changes
+!/.flutter-plugins
+!/.flutter-plugins-dependencies
