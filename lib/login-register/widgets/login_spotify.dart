@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LoginSpotify extends StatelessWidget {
-  const LoginSpotify({Key? key}) : super(key: key);
+  final VoidCallback onPressed;
+  final String text;
+  const LoginSpotify(
+      {Key? key, required this.onPressed, this.text = "Sign up using Spotify"})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class LoginSpotify extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF1ED760),
       ),
-      onPressed: () => {},
+      onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -24,7 +28,7 @@ class LoginSpotify extends StatelessWidget {
               width: 10,
             ),
             Text(
-              "Sign up using Spotify",
+              text,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

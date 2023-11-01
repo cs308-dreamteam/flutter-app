@@ -1,3 +1,4 @@
+import 'package:bragi/common/widgets/or_separator.dart';
 import 'package:bragi/login-register/widgets/login_button.dart';
 import 'package:bragi/login-register/widgets/login_service_switch.dart';
 import 'package:bragi/login-register/widgets/login_spotify.dart';
@@ -5,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/services/global_variables.dart';
+import '../../common/services/validators.dart';
 import '../../common/widgets/logo.dart';
-import '../services/validators.dart';
-import '../widgets/login_field.dart';
-import '../widgets/login_separator.dart';
-import '../widgets/login_title.dart';
+import '../../common/widgets/simple_text_field.dart';
+import '../../common/widgets/simple_title.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                       const Logo(
                         width: 200,
                       ),
-                      const LoginTitle(
+                      const SimpleTitle(
                         firstPart: "Sign",
                         secondPart: "In",
                       ),
@@ -50,12 +50,12 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           alignment: WrapAlignment.center,
                           children: [
-                            LoginField(
+                            SimpleTextField(
                               fieldLabel: "Username",
                               fieldHint: "Username",
                               controller: usernameController,
                             ),
-                            LoginField(
+                            SimpleTextField(
                               fieldLabel: "Password",
                               fieldHint: "Password",
                               controller: passwordController,
@@ -84,8 +84,13 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const LoginSeparator(),
-                      const LoginSpotify(),
+                      const OrSeparator(),
+                      LoginSpotify(
+                        onPressed: () async {
+                          await GlobalVariables.authentication
+                              .loginWithSpotify();
+                        },
+                      ),
                     ],
                   ),
                 ),

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="94382ad1-9d59-41e8-9fed-e0efd5bdace0" name="Changes" comment="Added Verification Modal that allows the user to verify its email account after registering.&#10;Added login and register functionality and tested on local database.&#10;Switched to individual ElevatedButton styling since the alternative required boilerplate code when styling each button.&#10;Added Validators that contain functions used for validating strings.">
+      <change afterPath="$PROJECT_DIR$/lib/common/services/validators.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/widgets/or_separator.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/widgets/simple_text_field.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/widgets/simple_title.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/common/widgets/web_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/album.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/artist.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/song.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_library/screens/song_library_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_library/widgets/song_row_display.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/database_connection/database_connection_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/database_connection/database_connection_results.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/manual_entry/screens/manual_entry_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/manual_entry/widgets/additional_information_fields.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/manual_entry/widgets/additive_text_field.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/manual_entry/widgets/star_rating.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/screens/song_upload_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/song_upload/widgets/upload_option_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login-register/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login-register/screens/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login-register/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login-register/screens/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login-register/services/authentication.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login-register/services/authentication.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login-register/widgets/login_spotify.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login-register/widgets/login_spotify.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/login-register/widgets/verification_dialog/verification_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login-register/widgets/verification_dialog/verification_modal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+        <option value="animated_widget" />
+        <option value="stateful_widget" />
+        <option value="stateless_widget" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2WlBNkeD9vl3B8dLmSR3osBaxZe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dospa/Documents/GitHub/flutter-app&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app\lib\song_upload\database_connection" />
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app\lib\common\services" />
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app\lib\song_upload" />
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app\lib\song_upload\database_connection_dialog" />
+      <recent name="C:\Users\dospa\Documents\GitHub\flutter-app\lib\common\widgets" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="94382ad1-9d59-41e8-9fed-e0efd5bdace0" name="Changes" comment="" />
+      <created>1697297251152</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1697297251152</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initialized app, and made UI only Login/Register screens.&#10;go_router is needed for eventual track and profile screens' convenience. flutter_svg is needed for the spotify.svg asset, used in the login button (we might just use images, its a waste to include a package just for one use case.)&#10;The app is built on ThemeData -&gt; ColorScheme defined in the main.dart file. Hot Reload does not support variable changes, so when editing colors either copy-paste directly to MaterialApp.router -&gt; theme or use hot restarting. Project structure is feature-first, where features are separated into folders that contain widgets, services(api-data stuff) and screens.">
+      <created>1697305366738</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697305366738</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added networking fundamentals and global variables. Networking is done through client.dart that utilizes the http package. All manual ongoing network traffic is done through the Client class that is created with the app.&#10;Added 'send-verification-email' to the Authorization routes. Tested that the email is being sent and added to the DB. Unit testing this should be done on the backend side with mockup data. However, I will add integration tests to test the connection to the endpoint. &#10;Added the verification_modal.dart file which will contain the popup screen the user will fill in the verification code.">
+      <created>1697491602459</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1697491602459</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added Verification Modal that allows the user to verify its email account after registering.&#10;Added login and register functionality and tested on local database.&#10;Switched to individual ElevatedButton styling since the alternative required boilerplate code when styling each button.&#10;Added Validators that contain functions used for validating strings.">
+      <created>1697585923859</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697585923859</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initialized app, and made UI only Login/Register screens.&#10;go_router is needed for eventual track and profile screens' convenience. flutter_svg is needed for the spotify.svg asset, used in the login button (we might just use images, its a waste to include a package just for one use case.)&#10;The app is built on ThemeData -&gt; ColorScheme defined in the main.dart file. Hot Reload does not support variable changes, so when editing colors either copy-paste directly to MaterialApp.router -&gt; theme or use hot restarting. Project structure is feature-first, where features are separated into folders that contain widgets, services(api-data stuff) and screens." />
+    <MESSAGE value="Added networking fundamentals and global variables. Networking is done through client.dart that utilizes the http package. All manual ongoing network traffic is done through the Client class that is created with the app.&#10;Added 'send-verification-email' to the Authorization routes. Tested that the email is being sent and added to the DB. Unit testing this should be done on the backend side with mockup data. However, I will add integration tests to test the connection to the endpoint. &#10;Added the verification_modal.dart file which will contain the popup screen the user will fill in the verification code." />
+    <MESSAGE value="Added Verification Modal that allows the user to verify its email account after registering.&#10;Added login and register functionality and tested on local database.&#10;Switched to individual ElevatedButton styling since the alternative required boilerplate code when styling each button.&#10;Added Validators that contain functions used for validating strings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Verification Modal that allows the user to verify its email account after registering.&#10;Added login and register functionality and tested on local database.&#10;Switched to individual ElevatedButton styling since the alternative required boilerplate code when styling each button.&#10;Added Validators that contain functions used for validating strings." />
+  </component>
+</project>
