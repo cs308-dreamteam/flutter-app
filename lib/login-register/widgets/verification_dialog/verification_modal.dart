@@ -75,7 +75,7 @@ class VerificationModal extends StatelessWidget {
                 // TODO: Add error handling
                 if (!context.mounted) return;
                 if (statusCode == 201) {
-                  context.go("/profile");
+                  context.push("/profile");
                 }
               },
             ),

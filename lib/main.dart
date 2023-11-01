@@ -1,4 +1,7 @@
 import 'package:bragi/profile/widgets/profile_screen.dart';
+import 'package:bragi/song_upload/database_connection/database_connection_results.dart';
+import 'package:bragi/song_upload/manual_entry/screens/manual_entry_screen.dart';
+import 'package:bragi/song_upload/screens/song_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,7 +16,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => RegisterScreen(),
+      builder: (context, state) => ManualEntryScreen(),
     ),
     GoRoute(
       path: '/login',
@@ -27,6 +30,14 @@ final _router = GoRouter(
       path: '/profile',
       builder: (context, state) => const ProfileScreen(),
     ),
+    GoRoute(
+      path: '/upload',
+      builder: (context, state) => const SongUploadScreen(),
+    ),
+    GoRoute(
+      path: '/databaseConnectionResults',
+      builder: (context, state) => const DatabaseConnectionResults(),
+    )
   ],
 );
 

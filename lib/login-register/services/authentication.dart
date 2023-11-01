@@ -1,5 +1,6 @@
 import 'package:bragi/common/services/global_variables.dart';
 import 'package:bragi/login-register/services/user.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 class Authentication {
   String? token;
@@ -28,6 +29,7 @@ class Authentication {
         'pass': password,
       },
     );
+    user = User(username: username);
     return res.statusCode;
   }
 
@@ -63,5 +65,15 @@ class Authentication {
       },
     );
     return res.statusCode;
+  }
+
+  Future<void> loginWithSpotify() async {
+    var res = await GlobalVariables.client.send(
+      method: 'GET',
+      path: "/loginSpotify",
+      followRedirects: false,
+    );
+    await FlutterWebAuth.authenticate(
+        url: res.headers['location']!, callbackUrlScheme: 'bragi');
   }
 }
