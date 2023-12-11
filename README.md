@@ -8,10 +8,10 @@ List any prerequisites needed to run your project, such as Flutter SDK version, 
 
 Provide step-by-step series of examples that tell how to get a development environment running.
 
-`git clone https://github.com/your-username/your-project-name.git`
-`cd your-project-name`
-`flutter pub get`
-`flutter run`
+- `git clone https://github.com/your-username/your-project-name.git`
+- `cd your-project-name`
+- `flutter pub get`
+- `flutter run`
 
 ## UML and Class Diagram
 
