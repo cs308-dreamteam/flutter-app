@@ -1,9 +1,5 @@
 # Description for the flutter app
 
-## Prerequisites
-
-List any prerequisites needed to run your project, such as Flutter SDK version, any environment variables, etc.
-
 ## Installation
 
 Provide step-by-step series of examples that tell how to get a development environment running.
