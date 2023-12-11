@@ -4,7 +4,7 @@
 
 Provide step-by-step series of examples that tell how to get a development environment running.
 
-- `git clone https://github.com/your-username/your-project-name.git`
+- `git clone git@github.com:cs308-dreamteam/flutter-app.git`
 - `cd your-project-name`
 - `flutter pub get`
 - `flutter run`
