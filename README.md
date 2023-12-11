@@ -1,4 +1,4 @@
-# Description app
+# Description for the flutter app
 
 ## Prerequisites
 
