@@ -1,3 +1,4 @@
+import 'package:bragi/common/services/authentication.dart';
 import 'package:bragi/common/widgets/or_separator.dart';
 import 'package:bragi/login-register/widgets/login_button.dart';
 import 'package:bragi/login-register/widgets/login_service_switch.dart';
@@ -70,13 +71,20 @@ class LoginScreen extends StatelessWidget {
                               text: "Sign In",
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  var statusCode = await GlobalVariables
+                                  var status = await GlobalVariables
                                       .authentication
                                       .login(usernameController.text,
                                           passwordController.text);
                                   if (!context.mounted) return;
-                                  if (statusCode == 201) {
-                                    context.go("/profile");
+                                  if (status.statusCode == 201) {
+                                    context.go("/homePage");
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                        discernError(status),
+                                      ),
+                                    ));
                                   }
                                 }
                               },

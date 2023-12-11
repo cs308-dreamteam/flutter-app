@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:bragi/common/widgets/or_separator.dart';
 import 'package:bragi/common/widgets/simple_title.dart';
+import 'package:bragi/song_upload/database_connection/database_connection_dialog.dart';
 import 'package:bragi/song_upload/widgets/upload_option_button.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/song.dart';
 
@@ -17,71 +19,78 @@ class SongUploadScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Wrap(
-          direction: Axis.vertical,
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 16,
-          children: [
-            const SimpleTitle(
-              firstPart: "Song(s)",
-              secondPart: "ADD",
-              reverse: true,
-            ),
-            const SizedBox(height: 48),
-            UploadOptionButton(
-              color: Theme.of(context).colorScheme.primary,
-              onPressed: () => {},
-              text: "Manual Entry",
-              icon: const Icon(
-                Icons.edit,
-                color: Colors.white,
+        child: SingleChildScrollView(
+          child: Wrap(
+            direction: Axis.vertical,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 16,
+            children: [
+              const SimpleTitle(
+                firstPart: "Song(s)",
+                secondPart: "ADD",
+                reverse: true,
               ),
-            ),
-            const SizedBox(height: 16),
-            const OrSeparator(),
-            const SizedBox(height: 16),
-            Text(
-              "From",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w400,
-                color: Theme.of(context).colorScheme.onBackground,
+              const SizedBox(height: 48),
+              UploadOptionButton(
+                color: Theme.of(context).colorScheme.primary,
+                onPressed: () => context.push("/manualEntry"),
+                text: "Manual Entry",
+                icon: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            UploadOptionButton(
-              onPressed: () async {
-                final songs = await loadFile();
-                print(songs);
-                // TODO:
-                // 1. Add songs to database
-              },
-              color: Theme.of(context).colorScheme.primary,
-              text: "File",
-              icon: Icon(
-                Icons.file_upload,
-                color: Theme.of(context).colorScheme.onPrimary,
+              const SizedBox(height: 16),
+              const OrSeparator(),
+              const SizedBox(height: 16),
+              Text(
+                "From",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
               ),
-            ),
-            UploadOptionButton(
-              onPressed: () => {},
-              color: Theme.of(context).colorScheme.primary,
-              text: "Database",
-              icon: Icon(
-                Icons.cloud,
-                color: Theme.of(context).colorScheme.onPrimary,
+              UploadOptionButton(
+                onPressed: () async {
+                  final songs = await loadFile();
+                  print(songs);
+                  // TODO:
+                  // 1. Add songs to database
+                },
+                color: Theme.of(context).colorScheme.primary,
+                text: "File",
+                icon: Icon(
+                  Icons.file_upload,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
-            ),
-            UploadOptionButton(
-              onPressed: () => {},
-              text: "Spotify",
-              icon: SvgPicture.asset(
-                "assets/svg/spotify.svg",
-                semanticsLabel: 'Spotify Logo',
+              UploadOptionButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => DatabaseConnectionDialog(),
+                  );
+                },
+                color: Theme.of(context).colorScheme.primary,
+                text: "Database",
+                icon: Icon(
+                  Icons.cloud,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
               ),
-              color: const Color(0xFF1ED760),
-            )
-          ],
+              UploadOptionButton(
+                onPressed: () => {},
+                text: "Spotify",
+                icon: SvgPicture.asset(
+                  "assets/svg/spotify.svg",
+                  semanticsLabel: 'Spotify Logo',
+                ),
+                color: const Color(0xFF1ED760),
+              )
+            ],
+          ),
         ),
       ),
     );

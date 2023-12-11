@@ -44,7 +44,8 @@ dependencies:
   simple_animations: ^5.0.2
   file_picker: ^6.0.0
   flutter_rating_bar: ^4.0.1
-  sql_conn: ^0.0.3
+  mysql_client: ^0.0.27
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   integration_test:

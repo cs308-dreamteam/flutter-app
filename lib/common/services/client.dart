@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'global_variables.dart';
+
 class Client {
   // Client class allows for easier request intervention and dynamic uri.
 
@@ -29,11 +31,11 @@ class Client {
             path: path,
             queryParameters: queryParameters);
     var req = http.Request(method, uri);
-
-    if (body is Map) {
-      req.bodyFields = body as Map<String, String>;
-    } else if (body != null) {
-      req.body = body;
+    req.headers['Content-Type'] = 'application/json';
+    req.headers['Authorization'] =
+        'Bearer ${GlobalVariables.authentication.token}';
+    if (body != null) {
+      req.body = jsonEncode(body);
     }
     if (headers != null) req.headers.addAll(headers);
     req.encoding = encoding;
@@ -41,6 +43,8 @@ class Client {
     req.maxRedirects = maxRedirects;
     req.persistentConnection = persistentConnection;
 
-    return req.send();
+    return req.send().timeout(const Duration(seconds: 10), onTimeout: () {
+      return http.StreamedResponse(const Stream.empty(), 0);
+    });
   }
 }
