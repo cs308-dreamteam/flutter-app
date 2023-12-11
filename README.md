@@ -1,16 +1,19 @@
-# bragi
+# Description app
 
-Bragi is a music recommendation app that is made for the Fall 2023-2024 CS308 project in Sabancı University.
+## Prerequisites
 
-## Getting Started
+List any prerequisites needed to run your project, such as Flutter SDK version, any environment variables, etc.
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+Provide step-by-step series of examples that tell how to get a development environment running.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+git clone https://github.com/your-username/your-project-name.git
+cd your-project-name
+flutter pub get
+flutter run```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## UML and Class Diagram
+
+<img width="957" alt="Screenshot 2023-12-11 at 15 37 11" src="https://github.com/cs308-dreamteam/flutter-app/assets/111140694/0ecef364-40f8-4fcd-aa2f-2ee132853c58">
