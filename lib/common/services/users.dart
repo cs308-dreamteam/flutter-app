@@ -18,7 +18,7 @@ class Users {
   static Future<User> getUser(String username) async {
     StreamedResponse response = await GlobalVariables.client.send(
       method: 'GET',
-      path: '/get_user/$username',
+      path: '/get_user',
     );
     String responseString = await response.stream.bytesToString();
     Map<String, dynamic> userMap = jsonDecode(responseString);

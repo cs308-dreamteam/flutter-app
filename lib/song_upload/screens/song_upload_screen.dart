@@ -67,6 +67,14 @@ class SongUploadScreen extends StatelessWidget {
                 ),
               ),
               UploadOptionButton(
+                  onPressed: () => context.push("/allTracks"),
+                  text: "All Tracks",
+                  icon: Icon(
+                    Icons.cloud_sync,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  color: Theme.of(context).colorScheme.primary),
+              UploadOptionButton(
                 onPressed: () {
                   showDialog(
                     context: context,

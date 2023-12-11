@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:bragi/common/services/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class User {
@@ -10,8 +13,17 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       username: json['username'],
-      followers: json['followers'],
-      image: json['image'],
     );
+  }
+
+  Future<dynamic> getAnalysisData() async {
+    var response = await GlobalVariables.client
+        .send(method: 'GET', path: '/analysis_data');
+
+    var decodedResponse = jsonDecode(await response.stream.bytesToString());
+
+    print(decodedResponse);
+
+    return decodedResponse;
   }
 }

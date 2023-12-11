@@ -5,9 +5,7 @@ import '../../common/services/tracks.dart';
 
 class SongList extends StatefulWidget {
   final TextEditingController controller;
-
   const SongList({Key? key, required this.controller}) : super(key: key);
-
   @override
   State<SongList> createState() => _SongListState();
 }
@@ -45,12 +43,18 @@ class _SongListState extends State<SongList> {
   }
 
   void fetchTracks() {
-    trackConnection.getUserListens().then((value) => {
-          setState(() {
-            tracks.addAll(value.map((e) => Song.fromJson(e)));
-          }),
-          filterTracks(),
-        });
+    trackConnection
+        .getTracks(
+          30,
+          tracks.length,
+          null,
+        )
+        .then((value) => {
+              setState(() {
+                tracks.addAll(value.map((e) => Song.fromJson(e)));
+              }),
+              filterTracks(),
+            });
   }
 
   void filterTracks() {
@@ -68,7 +72,7 @@ class _SongListState extends State<SongList> {
     return ListView.builder(
       itemCount: currTracks.length,
       itemBuilder: (context, index) {
-        return currTracks[index].asRowWidget(context);
+        return currTracks[index].asRowWidget(context, hasAddButton: true);
       },
       controller: _scrollController,
     );

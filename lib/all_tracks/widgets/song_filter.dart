@@ -4,7 +4,7 @@ class SongFilter extends StatefulWidget {
   final TextEditingController controller;
   const SongFilter({Key? key, required this.controller}) : super(key: key);
   @override
-  _SongFilterState createState() => _SongFilterState();
+  State<SongFilter> createState() => _SongFilterState();
 }
 
 class _SongFilterState extends State<SongFilter> {

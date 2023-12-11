@@ -4,6 +4,7 @@ import 'package:bragi/common/services/global_variables.dart';
 import 'package:bragi/song_library/widgets/details_entry.dart';
 import 'package:bragi/song_library/widgets/song_delete_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 
 import 'album.dart';
@@ -13,7 +14,7 @@ class Song {
   final String name;
   final List<Artist> artists;
   final List<Album> albums;
-  final double? rating;
+  int? rating;
 
   final Image? image;
   final double? danceability;
@@ -65,6 +66,7 @@ class Song {
   });
 
   factory Song.fromJson(Map<String, dynamic> json) {
+    print(json);
     return Song(
       name: json['songTitle'],
       artists: json['artists']
@@ -76,16 +78,16 @@ class Song {
           : null,
       genres: json['genres'].map<String>((genre) => genre.toString()).toList(),
       rating: json['rating'],
-      danceability: json['features']['danceability'],
-      energy: json['features']['energy'],
+      danceability: json['features']?['danceability'],
+      energy: json['features']?['energy'],
       loudness: json['loudness'],
       mode: json['mode'],
       speechiness: json['speechiness'],
       acousticness: json['acousticness'],
       instrumentalness: json['instrumentalness'],
       liveness: json['liveness'],
-      valence: json['features']['valence'],
-      popularity: json['features']['popularity'],
+      valence: json['features']?['valence'],
+      popularity: json['features']?['popularity'],
       tempo: json['tempo'],
       type: json['type'],
       uri: json['uri'],
@@ -107,9 +109,9 @@ class Song {
 
   Map<String, dynamic> toJson() {
     return {
-      'song_title': name,
-      'artist_group': artists,
-      'album_group': albums,
+      'title': name,
+      'artists': artists.map((artist) => artist.name).toList(),
+      'albums': albums.map((album) => album.name).toList(),
       'image': image != null ? base64Encode(image!.toString().codeUnits) : null,
       'genres': genres,
       'rating': rating,
@@ -133,15 +135,15 @@ class Song {
     };
   }
 
-  Widget asRowWidget(BuildContext context) {
-    return SongWidget(song: this);
+  Widget asRowWidget(BuildContext context, {bool hasAddButton = false}) {
+    return SongWidget(song: this, hasAddButton: hasAddButton);
   }
 
   static Song example() {
     return Song.fromJson({
       'song_title': "Electric Dreams",
-      'artist_group': ["Synthwave Wizards"],
-      'album_name': ["Digital Odyssey"],
+      'artists': ["Synthwave Wizards"],
+      'albums': ["Digital Odyssey"],
       'danceability': 0.85,
       'energy': 0.92,
       'loudness': -5.3,
@@ -170,12 +172,23 @@ class Song {
 
     return response;
   }
+
+  Future<StreamedResponse> add() async {
+    rating ??= 0;
+    StreamedResponse response = await GlobalVariables.client
+        .send(method: 'POST', path: '/add_song', body: {
+      'songList': [toJson()]
+    });
+    return response;
+  }
 }
 
 class SongWidget extends StatefulWidget {
   final Song song;
+  final bool hasAddButton;
 
-  const SongWidget({Key? key, required this.song}) : super(key: key);
+  const SongWidget({Key? key, required this.song, this.hasAddButton = false})
+      : super(key: key);
 
   @override
   State<SongWidget> createState() => _SongWidgetState();
@@ -205,7 +218,19 @@ class _SongWidgetState extends State<SongWidget> {
               DetailsEntry(
                   title: "Popularity: ",
                   value: widget.song.popularity?.toString() ?? "Unknown"),
-              SongDeleteButton(song: widget.song),
+              !widget.hasAddButton
+                  ? SongDeleteButton(song: widget.song)
+                  : Container(),
+              widget.hasAddButton
+                  ? TextButton(
+                      onPressed: () async {
+                        await widget.song.add();
+                        if (!context.mounted) return;
+                        context.pop();
+                      },
+                      child: const Text("Add"),
+                    )
+                  : Container(),
             ],
           ),
         ],

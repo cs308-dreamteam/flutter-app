@@ -32,11 +32,11 @@ class Client {
             queryParameters: queryParameters);
     var req = http.Request(method, uri);
     req.headers['Content-Type'] = 'application/json';
-    req.headers['Authorization'] =
-        'Bearer ${GlobalVariables.authentication.token}';
+    req.headers['x-access-token'] = GlobalVariables.authentication.token ?? "";
     if (body != null) {
       req.body = jsonEncode(body);
     }
+    print(req.body);
     if (headers != null) req.headers.addAll(headers);
     req.encoding = encoding;
     req.followRedirects = followRedirects;

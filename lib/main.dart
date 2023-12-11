@@ -1,3 +1,4 @@
+import 'package:bragi/all_tracks/screens/all_tracks_screen.dart';
 import 'package:bragi/analysis/screens/analysis_screen.dart';
 import 'package:bragi/home_page/screens/home_screen.dart';
 import 'package:bragi/landing/screens/landing_screen.dart';
@@ -73,6 +74,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/analysis',
       builder: (context, state) => const AnalysisScreen(),
+    ),
+    GoRoute(
+      path: '/allTracks',
+      builder: (context, state) => const AllTracksScreen(),
     ),
   ],
 );

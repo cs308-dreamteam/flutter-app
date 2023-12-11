@@ -23,13 +23,35 @@ class Tracks {
     return decodedResponse;
   }
 
-  Future<List<Tracks>> getUserListens() async {
+  Future<List<dynamic>> getUserListens() async {
     StreamedResponse response =
-        await client.send(method: 'GET', path: '/getLibrary');
+        await client.send(method: 'GET', path: '/getFormattedLibrary');
 
     // Decode the response
     var decodedResponse = jsonDecode(await response.stream.bytesToString());
 
     return decodedResponse;
+  }
+
+  Future<List<dynamic>> getRecommendations() async {
+    StreamedResponse response =
+        await client.send(method: 'GET', path: '/getRecommendations');
+
+    // Decode the response
+    var decodedResponse = jsonDecode(await response.stream.bytesToString());
+    var spotifyResponse = decodedResponse['spotifyRecom'];
+
+    // process the spotify response
+    List<dynamic> processedSpotifyResponse = [];
+    for (var track in spotifyResponse) {
+      var processedTrack = {
+        'songTitle': track['song'],
+        'artists': track['artist'].split(', '),
+        'albums': track['album'].split(', '),
+        'genres': track['genre'].split(', '),
+      };
+      processedSpotifyResponse.add(processedTrack);
+    }
+    return processedSpotifyResponse;
   }
 }

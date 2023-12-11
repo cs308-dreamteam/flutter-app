@@ -1,3 +1,4 @@
+import 'package:bragi/recommendation_page/widgets/song_list.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationScreen extends StatelessWidget {
@@ -5,6 +6,12 @@ class RecommendationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: SongList(),
+        ),
+      ),
+    );
   }
 }

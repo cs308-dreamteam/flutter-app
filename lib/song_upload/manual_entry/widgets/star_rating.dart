@@ -44,7 +44,7 @@ class _StarRatingState extends State<StarRating> {
             initialRating: 3,
             minRating: 1,
             direction: Axis.horizontal,
-            allowHalfRating: true,
+            allowHalfRating: false,
             itemCount: 5,
             itemBuilder: (context, _) => Icon(
               Icons.star,

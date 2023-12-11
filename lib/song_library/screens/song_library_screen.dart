@@ -9,6 +9,8 @@ class SongLibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController searchController = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(
@@ -26,11 +28,15 @@ class SongLibraryScreen extends StatelessWidget {
                     action: () => {},
                     icon: const Icon(Icons.filter_none))
                 .buildTopBar(context),
-            const SongFilter(),
-            const Expanded(
+            SongFilter(
+              controller: searchController,
+            ),
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SongList(),
+                padding: const EdgeInsets.all(8.0),
+                child: SongList(
+                  controller: searchController,
+                ),
               ),
             ),
           ],
