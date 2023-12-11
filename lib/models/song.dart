@@ -1,3 +1,11 @@
+import 'dart:convert';
+
+import 'package:bragi/common/services/global_variables.dart';
+import 'package:bragi/song_library/widgets/details_entry.dart';
+import 'package:bragi/song_library/widgets/song_delete_button.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
 import 'album.dart';
 import 'artist.dart';
 
@@ -7,6 +15,7 @@ class Song {
   final List<Album> albums;
   final double? rating;
 
+  final Image? image;
   final double? danceability;
   final double? energy;
   final double? loudness;
@@ -21,14 +30,17 @@ class Song {
   final String? uri;
   final String? trackHref;
   final String? analysisUrl;
-  final double? durationMs;
-  final double? timeSignature;
-  final String? genre;
+  final int? durationMs;
+  final int? timeSignature;
+
+  final int? popularity;
+  final List<String>? genres;
   final DateTime? releaseYear;
 
   Song({
+    this.image,
     this.rating,
-    this.genre,
+    this.genres,
     this.danceability,
     this.energy,
     this.loudness,
@@ -46,27 +58,34 @@ class Song {
     this.durationMs,
     this.timeSignature,
     this.releaseYear,
+    this.popularity,
     required this.name,
     required this.artists,
     required this.albums,
   });
 
-  static Song fromJson(Map<String, dynamic> json) {
+  factory Song.fromJson(Map<String, dynamic> json) {
     return Song(
-      name: json['name'],
-      artists: json['artists'],
-      albums: json['albums'],
-      genre: json['genre'],
+      name: json['songTitle'],
+      artists: json['artists']
+          .map<Artist>((artist) => Artist(name: artist))
+          .toList(),
+      albums: json['albums'].map<Album>((album) => Album(name: album)).toList(),
+      image: json['image'] != null
+          ? Image.memory(base64Decode(json['image']))
+          : null,
+      genres: json['genres'].map<String>((genre) => genre.toString()).toList(),
       rating: json['rating'],
-      danceability: json['danceability'],
-      energy: json['energy'],
+      danceability: json['features']['danceability'],
+      energy: json['features']['energy'],
       loudness: json['loudness'],
       mode: json['mode'],
       speechiness: json['speechiness'],
       acousticness: json['acousticness'],
       instrumentalness: json['instrumentalness'],
       liveness: json['liveness'],
-      valence: json['valence'],
+      valence: json['features']['valence'],
+      popularity: json['features']['popularity'],
       tempo: json['tempo'],
       type: json['type'],
       uri: json['uri'],
@@ -88,10 +107,11 @@ class Song {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'artists': artists,
-      'albums': albums,
-      'genre': genre,
+      'song_title': name,
+      'artist_group': artists,
+      'album_group': albums,
+      'image': image != null ? base64Encode(image!.toString().codeUnits) : null,
+      'genres': genres,
       'rating': rating,
       'danceability': danceability,
       'energy': energy,
@@ -111,5 +131,163 @@ class Song {
       'time_signature': timeSignature,
       'release_year': releaseYear,
     };
+  }
+
+  Widget asRowWidget(BuildContext context) {
+    return SongWidget(song: this);
+  }
+
+  static Song example() {
+    return Song.fromJson({
+      'song_title': "Electric Dreams",
+      'artist_group': ["Synthwave Wizards"],
+      'album_name': ["Digital Odyssey"],
+      'danceability': 0.85,
+      'energy': 0.92,
+      'loudness': -5.3,
+      'mode': 1.0,
+      'speechiness': 0.12,
+      'acousticness': 0.08,
+      'instrumentalness': 0.88,
+      'liveness': 0.18,
+      'valence': 0.78,
+      'tempo': 120.0,
+      'type': "audio_features",
+      'uri': "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
+      'track_href': "https://api.spotify.com/v1/tracks/4iV5W9uYEdYUVa79Axb7Rh",
+      'analysis_url':
+          "https://api.spotify.com/v1/audio-analysis/4iV5W9uYEdYUVa79Axb7Rh",
+      'duration_ms': 267000,
+      'time_signature': 4,
+      'genres': ["Synthwave"],
+      'release_year': DateTime(2021, 1, 1),
+    });
+  }
+
+  Future<StreamedResponse> delete() async {
+    StreamedResponse response = await GlobalVariables.client
+        .send(method: 'DELETE', path: '/deleteSong', body: {'title': name});
+
+    return response;
+  }
+}
+
+class SongWidget extends StatefulWidget {
+  final Song song;
+
+  const SongWidget({Key? key, required this.song}) : super(key: key);
+
+  @override
+  State<SongWidget> createState() => _SongWidgetState();
+}
+
+class _SongWidgetState extends State<SongWidget> {
+  Widget details(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DetailsEntry(
+                  title: "Genres: ",
+                  value: widget.song.genres?.join("\n") ?? "Unknown"),
+              DetailsEntry(
+                  title: "Danceability: ",
+                  value: widget.song.danceability?.toString() ?? "Unknown"),
+              DetailsEntry(
+                  title: "Energy: ",
+                  value: widget.song.energy?.toString() ?? "Unknown"),
+              DetailsEntry(
+                  title: "Valence: ",
+                  value: widget.song.valence?.toString() ?? "Unknown"),
+              DetailsEntry(
+                  title: "Popularity: ",
+                  value: widget.song.popularity?.toString() ?? "Unknown"),
+              SongDeleteButton(song: widget.song),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return details(context);
+            },
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.only(
+            right: 8,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ),
+                ),
+                child: FittedBox(
+                  child: widget.song.image == null
+                      ? Icon(
+                          Icons.music_note,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 64,
+                        )
+                      : widget.song.image!,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.song.name,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      "${widget.song.artists[0]} - ${widget.song.albums[0]}",
+                      style: TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

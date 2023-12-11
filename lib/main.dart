@@ -1,10 +1,17 @@
-import 'package:bragi/profile/widgets/profile_screen.dart';
+import 'package:bragi/analysis/screens/analysis_screen.dart';
+import 'package:bragi/home_page/screens/home_screen.dart';
+import 'package:bragi/landing/screens/landing_screen.dart';
+import 'package:bragi/people_search/screens/people_search_screen.dart';
+import 'package:bragi/profile/screens/profile_screen.dart';
+import 'package:bragi/recommendation_page/screens/recommendation_screen.dart';
+import 'package:bragi/song_library/screens/song_library_screen.dart';
 import 'package:bragi/song_upload/database_connection/database_connection_results.dart';
 import 'package:bragi/song_upload/manual_entry/screens/manual_entry_screen.dart';
 import 'package:bragi/song_upload/screens/song_upload_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'common/services/global_variables.dart';
 import 'login-register/screens/login_screen.dart';
 import 'login-register/screens/register_screen.dart';
 
@@ -16,7 +23,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => ManualEntryScreen(),
+      builder: (context, state) => const LandingScreen(),
     ),
     GoRoute(
       path: '/login',
@@ -27,17 +34,46 @@ final _router = GoRouter(
       builder: (context, state) => RegisterScreen(),
     ),
     GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
+      path: '/profile/:username',
+      builder: (context, state) => ProfileScreen(
+        username: state.pathParameters['username'] ??
+            GlobalVariables.authentication.user?.username,
+      ),
     ),
     GoRoute(
       path: '/upload',
       builder: (context, state) => const SongUploadScreen(),
     ),
     GoRoute(
-      path: '/databaseConnectionResults',
-      builder: (context, state) => const DatabaseConnectionResults(),
-    )
+      path: '/library',
+      builder: (context, state) => const SongLibraryScreen(),
+    ),
+    GoRoute(
+      path: '/databaseConnectionResults/:results',
+      builder: (context, state) => DatabaseConnectionResults(
+        results: state.pathParameters['results'],
+      ),
+    ),
+    GoRoute(
+      path: '/manualEntry',
+      builder: (context, state) => const ManualEntryScreen(),
+    ),
+    GoRoute(
+      path: '/homePage',
+      builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/peopleSearch',
+      builder: (context, state) => const PeopleSearchScreen(),
+    ),
+    GoRoute(
+      path: '/recommendations',
+      builder: (context, state) => const RecommendationScreen(),
+    ),
+    GoRoute(
+      path: '/analysis',
+      builder: (context, state) => const AnalysisScreen(),
+    ),
   ],
 );
 

@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:bragi/common/services/global_variables.dart';
-import 'package:bragi/login-register/services/user.dart';
+import 'package:bragi/common/services/user.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:http/http.dart';
 
 class Authentication {
   String? token;
   User? user;
 
-  Future<int> sendVerificationMail(String mail) async {
+  Future<StreamedResponse> sendVerificationMail(String mail) async {
     var res = await GlobalVariables.client.send(
       method: 'POST',
       path: "/send-verification-email",
@@ -14,10 +17,10 @@ class Authentication {
         'userEmail': mail,
       },
     );
-    return res.statusCode;
+    return res;
   }
 
-  Future<int> verify(
+  Future<StreamedResponse> verify(
       String code, String mail, String username, String password) async {
     var res = await GlobalVariables.client.send(
       method: 'POST',
@@ -30,19 +33,24 @@ class Authentication {
       },
     );
     user = User(username: username);
-    return res.statusCode;
+
+    var result = await res.stream.bytesToString();
+    token = json.decode(result)['token'];
+
+    return res;
   }
 
-  Future<int> register(String username, String password, String mail) async {
+  Future<StreamedResponse> register(
+      String username, String password, String mail) async {
     var res = await GlobalVariables.client.send(
       method: 'POST',
       path: '/register/username/$username/password/$password/email/$mail',
     );
     user = User(username: username);
-    return res.statusCode;
+    return res;
   }
 
-  Future<int> login(String username, String password) async {
+  Future<StreamedResponse> login(String username, String password) async {
     var res = await GlobalVariables.client.send(
       method: 'POST',
       path: "/login",
@@ -52,11 +60,15 @@ class Authentication {
       },
     );
     user = User(username: username);
-    return res.statusCode;
+
+    var result = await res.stream.bytesToString();
+    token = json.decode(result)['token'];
+
+    return res;
   }
 
-  Future<int> logout() async {
-    if (user == null) return 0;
+  Future<StreamedResponse> logout() async {
+    if (user == null) return StreamedResponse(const Stream.empty(), 0);
     var res = await GlobalVariables.client.send(
       method: 'POST',
       path: "/logout",
@@ -64,7 +76,7 @@ class Authentication {
         'name': user?.username,
       },
     );
-    return res.statusCode;
+    return res;
   }
 
   Future<void> loginWithSpotify() async {
@@ -75,5 +87,24 @@ class Authentication {
     );
     await FlutterWebAuth.authenticate(
         url: res.headers['location']!, callbackUrlScheme: 'bragi');
+  }
+}
+
+String discernError(StreamedResponse response) {
+  switch (response.statusCode) {
+    case 0:
+      return "Could not connect to server.";
+    case 400:
+      return "Bad request.";
+    case 401:
+      return "Wrong username or password.";
+    case 403:
+      return "Forbidden.";
+    case 404:
+      return "Not found.";
+    case 500:
+      return "Internal server error.";
+    default:
+      return "Unknown error.";
   }
 }

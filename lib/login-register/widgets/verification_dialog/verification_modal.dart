@@ -6,6 +6,7 @@ import 'package:bragi/login-register/widgets/verification_dialog/widgets/modal_t
 import 'package:bragi/login-register/widgets/verification_dialog/widgets/modal_verify_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 
 class VerificationModal extends StatelessWidget {
   final String mail;
@@ -66,7 +67,8 @@ class VerificationModal extends StatelessWidget {
             ),
             ModalVerifyButton(
               onPressed: () async {
-                var statusCode = await GlobalVariables.authentication.verify(
+                StreamedResponse statusCode =
+                    await GlobalVariables.authentication.verify(
                   input.controllers.map((e) => e.text).join(""),
                   mail,
                   username,
@@ -74,8 +76,8 @@ class VerificationModal extends StatelessWidget {
                 );
                 // TODO: Add error handling
                 if (!context.mounted) return;
-                if (statusCode == 201) {
-                  context.push("/profile");
+                if (statusCode.statusCode == 201) {
+                  context.push("/homePage");
                 }
               },
             ),
